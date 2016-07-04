@@ -56,9 +56,9 @@ You can also create an issue with a description to raise awareness of the bug.
 
 # Features
 
-If you have a good idea for a Crud feature, please join us on IRC and let's discuss it. Pull
+If you have a good idea for a Fixturize feature, please join us on IRC and let's discuss it. Pull
 requests are always more than welcome.
 
 # Support / Questions
 
-You can join us on IRC in the #FriendsOfCake channel for any support or questions.
+You can join us on IRC in the #CakePHP channel for any support or questions.
