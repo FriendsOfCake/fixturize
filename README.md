@@ -16,7 +16,13 @@ This plugin currently only work with MySQL databases.
 
 # Usage
 
-Instead of ``use Cake\TestSuite\Fixture\TestFixture;`` simply use ``use FriendsOfCake\Fixturize\TestSuite\Fixture\ChecksumTestFixture as TestFixture;``.
+Instead of
+
+``use Cake\TestSuite\Fixture\TestFixture;``
+
+simply use
+
+``use FriendsOfCake\Fixturize\TestSuite\Fixture\ChecksumTestFixture as TestFixture;``.
 
 Re-run your tests and enjoy the speed!
 
