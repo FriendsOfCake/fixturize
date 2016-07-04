@@ -1,0 +1,40 @@
+{
+  "name": "friendsofcake/fixturize",
+  "description": "CakePHP Fixture classes to help increase productivity or performance",
+  "type": "cakephp-plugin",
+  "keywords": [
+    "cakephp",
+    "fixture",
+    "fixtures",
+    "unittest",
+    "phpunit",
+    "performance"
+  ],
+  "homepage": "https://github.com/FriendsOfCake/fixturize",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christian Winther",
+      "role": "Author",
+      "homepage": "http://cakephp.nu/"
+    },
+    {
+      "name": "José Lorenzo Rodríguez",
+      "role": "Contributor",
+      "homepage": "https://github.com/lorenzo"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "FriendsOfCake\\Fixture\\": "src"
+    }
+  },
+  "require": {
+    "cakephp/cakephp": "^3.2"
+  },
+  "support": {
+    "source": "https://github.com/FriendsOfCake/fixturize",
+    "issues": "https://github.com/FriendsOfCake/fixturize/issues",
+    "irc": "irc://irc.freenode.org/cakephp"
+  }
+}
