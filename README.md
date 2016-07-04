@@ -26,6 +26,27 @@ simply use
 
 Re-run your tests and enjoy the speed!
 
+# Real life improvements
+
+<table>
+    <thead>
+        <th>Who</th>
+        <th># Tests</th>
+        <th>Before</th>
+        <th>After</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Bownty Content Importer</td>
+            <td>364</td>
+            <td>15s</td>
+            <td>5s</td>
+        </tr>
+    </tbody>
+</table>
+
+Feel free to submit your own results above
+
 # Bugs
 
 If you happen to stumble upon a bug, please feel free to create a pull request with a fix
