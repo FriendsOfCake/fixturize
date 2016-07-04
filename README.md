@@ -22,7 +22,7 @@ Instead of
 
 simply use
 
-``use FriendsOfCake\Fixturize\TestSuite\Fixture\ChecksumTestFixture as TestFixture;``.
+``use FriendsOfCake\Fixturize\TestSuite\Fixture\ChecksumTestFixture as TestFixture;``
 
 Re-run your tests and enjoy the speed!
 
