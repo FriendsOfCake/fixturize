@@ -43,7 +43,7 @@ Re-run your tests and enjoy the speed!
             <td>5s</td>
         </tr>
         <tr>
-            <td>Apacta REST API (110 fixtures) (</td>
+            <td>Apacta REST API (110 fixtures)</td>
             <td>318</td>
             <td>180s</td>
             <td>30s</td>
