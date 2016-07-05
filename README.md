@@ -12,7 +12,7 @@ composer require friendsofcake/fixturize
 
 The fixturize plugin will help improve performance of your fixture based tests.
 
-This plugin currently only work with MySQL databases.
+This plugin currently only work with MySQL/MariaDB/Percona databases.
 
 # Usage
 
