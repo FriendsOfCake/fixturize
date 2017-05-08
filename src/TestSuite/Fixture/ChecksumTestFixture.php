@@ -2,6 +2,7 @@
 namespace FriendsOfCake\Fixturize\TestSuite\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
+use Cake\Database\Driver\Mysql;
 use Cake\Datasource\ConnectionInterface;
 
 /**
@@ -103,7 +104,14 @@ class ChecksumTestFixture extends TestFixture
  */
     protected function _hash(ConnectionInterface $db)
     {
-        $sth = $db->execute("CHECKSUM TABLE " . $this->table);
+        $driver = $db->getDriver();
+
+        if (!$driver instanceof Mysql) {
+            // Have no better idea right now to make it always regenerate the tables
+            return microtime();
+        }
+
+        $sth = $db->execute("CHECKSUM TABLE " . $this->table . ';');
         $result = $sth->fetch('assoc');
         $checksum = $result['Checksum'];
         return $checksum;
