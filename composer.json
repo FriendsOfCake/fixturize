@@ -30,7 +30,7 @@
     }
   },
   "require": {
-    "cakephp/cakephp": "^3.2"
+    "cakephp/cakephp": "<3.0"
   },
   "support": {
     "source": "https://github.com/FriendsOfCake/fixturize",
