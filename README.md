@@ -2,11 +2,7 @@
 
 # Installation
 
-For CakePHP 3.x compatible version:
-
-```
-composer require friendsofcake/fixturize
-```
+For CakePHP 2.x install to Plugins folder.
 
 # Introduction
 
@@ -18,11 +14,11 @@ This plugin currently only work with MySQL/MariaDB/Percona databases.
 
 Instead of
 
-``use Cake\TestSuite\Fixture\TestFixture;``
+``class YourFixture extends CakeTestFixture``
 
 simply use
 
-``use FriendsOfCake\Fixturize\TestSuite\Fixture\ChecksumTestFixture as TestFixture;``
+``class YourFixture extends ChecksumTestFixture``
 
 Re-run your tests and enjoy the speed!
 

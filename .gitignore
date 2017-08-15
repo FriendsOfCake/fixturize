@@ -4,3 +4,6 @@ phpunit.xml
 vendor/
 composer.lock
 tmp
+/.settings/
+/.buildpath
+/.project
