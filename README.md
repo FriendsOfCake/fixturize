@@ -20,6 +20,10 @@ simply use
 
 ``class YourFixture extends ChecksumTestFixture``
 
+and add
+
+``App::uses('ChecksumTestFixture', 'Fixturize.Cake/TestSuite/Fixture');``
+
 Re-run your tests and enjoy the speed!
 
 # Real life improvements
