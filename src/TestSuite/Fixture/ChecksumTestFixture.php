@@ -39,7 +39,7 @@ class ChecksumTestFixture extends TestFixture
         }
 
         $result = parent::insert($db);
-        static::$_tableHashes[$this->_getTableKey()] = $this->_hash($db);
+        static::$_tableHashes[get_class($this)] = $this->_hash($db);
         return $result;
     }
 
@@ -68,7 +68,7 @@ class ChecksumTestFixture extends TestFixture
  */
     public function drop(ConnectionInterface $db)
     {
-        unset(static::$_tableHashes[$this->table]);
+        unset(static::$_tableHashes[get_class($this)]);
         return parent::drop($db);
     }
 
@@ -85,12 +85,12 @@ class ChecksumTestFixture extends TestFixture
  */
     protected function _tableUnmodified($db)
     {
-        $tableKey = $this->_getTableKey();
-        if (empty(static::$_tableHashes[$tableKey])) {
+        $fixtureKey = get_class($this);
+        if (empty(static::$_tableHashes[$fixtureKey])) {
             return false;
         }
 
-        if (static::$_tableHashes[$tableKey] === $this->_hash($db)) {
+        if (static::$_tableHashes[$fixtureKey] === $this->_hash($db)) {
             return true;
         }
 
@@ -116,15 +116,5 @@ class ChecksumTestFixture extends TestFixture
         $result = $sth->fetch('assoc');
         $checksum = $result['Checksum'];
         return $checksum;
-    }
-
-/**
- * Get the key for table hashes
- *
- * @return string key for specify connection and table
- */
-    protected function _getTableKey ()
-    {
-        return $this->connection() . '-' . $this->table;
     }
 }
