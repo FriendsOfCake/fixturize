@@ -38,8 +38,16 @@ class ChecksumTestFixture extends TestFixture
             return true;
         }
 
+        $this->truncate($db);
+
+        $this->_disableForeignKeys($db);
+
         $result = parent::insert($db);
+
+        $this->_enableForeignKeys($db);
+
         static::$_tableHashes[$this->_getTableKey()] = $this->_hash($db);
+
         return $result;
     }
 
@@ -57,7 +65,13 @@ class ChecksumTestFixture extends TestFixture
             return true;
         }
 
-        return parent::truncate($db);
+        $this->_disableForeignKeys($db);
+
+        $result = parent::truncate($db);
+
+        $this->_enableForeignKeys($db);
+
+        return $result;
     }
 
 /**
@@ -68,7 +82,11 @@ class ChecksumTestFixture extends TestFixture
  */
     public function drop(ConnectionInterface $db)
     {
-        unset(static::$_tableHashes[$this->table]);
+        unset(static::$_tableHashes[$this->_getTableKey()]);
+
+        $this->_disableForeignKeys($db);
+        $this->dropConstraints($db);
+
         return parent::drop($db);
     }
 
@@ -126,5 +144,29 @@ class ChecksumTestFixture extends TestFixture
     protected function _getTableKey ()
     {
         return $this->connection() . '-' . $this->table;
+    }
+
+/**
+ * Disable foreign key
+ *
+ * @param ConnectionInterface $db
+ */
+    protected function _disableForeignKeys(ConnectionInterface $db)
+    {
+        if (method_exists($db, 'disableForeignKeys')) {
+            $db->disableForeignKeys();
+        }
+    }
+
+/**
+ * Enable foreign key
+ *
+ * @param ConnectionInterface $db
+ */
+    protected function _enableForeignKeys(ConnectionInterface $db)
+    {
+        if (method_exists($db, 'enableForeignKeys')) {
+            $db->enableForeignKeys();
+        }
     }
 }
