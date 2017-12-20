@@ -115,7 +115,28 @@ class ChecksumTestFixture extends TestFixture
         $sth = $db->execute("CHECKSUM TABLE " . $this->table . ';');
         $result = $sth->fetch('assoc');
         $checksum = $result['Checksum'];
-        return $checksum;
+
+        // get auto increment count
+        $autoIncrement = $this->_getAutoIncrement($db);
+
+        return $checksum . $autoIncrement;
+    }
+
+/**
+ * Get the table auto increment count
+ *
+ * @param ConnectionInterface $db
+ * @return string
+ */
+    protected function _getAutoIncrement(ConnectionInterface $db)
+    {
+        $autoIncrementSth = $db->execute('SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=:schema AND TABLE_NAME=:table;', [
+            'schema' => $db->config()['database'],
+            'table' => $this->table,
+        ]);
+        $autoIncrementResult = $autoIncrementSth->fetch('assoc');
+
+        return (string) $autoIncrementResult['AUTO_INCREMENT'];
     }
 
 /**
