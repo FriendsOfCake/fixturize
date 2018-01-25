@@ -86,7 +86,7 @@ class ChecksumTestFixture extends TestFixture
     protected function _tableUnmodified($db)
     {
         $tableKey = $this->_getTableKey();
-        if (empty(static::$_tableHashes[$tableKey])) {
+        if (!array_key_exists($this->table, static::$_tableHashes)) {
             return false;
         }
 
