@@ -68,7 +68,7 @@ class ChecksumTestFixture extends TestFixture
  */
     public function drop(ConnectionInterface $db)
     {
-        unset(static::$_tableHashes[$this->table]);
+        unset(static::$_tableHashes[$this->_getTableKey()]);
         return parent::drop($db);
     }
 
@@ -86,7 +86,7 @@ class ChecksumTestFixture extends TestFixture
     protected function _tableUnmodified($db)
     {
         $tableKey = $this->_getTableKey();
-        if (!array_key_exists($this->table, static::$_tableHashes)) {
+        if (!array_key_exists($tableKey, static::$_tableHashes)) {
             return false;
         }
 
