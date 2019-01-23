@@ -105,7 +105,7 @@ class ChecksumTestFixture extends TestFixture
  */
     protected function _hash(ConnectionInterface $db)
     {
-        $driver = $db->getDriver();
+        $driver = $db->driver();
 
         if (!$driver instanceof Mysql) {
             // Have no better idea right now to make it always regenerate the tables
