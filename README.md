@@ -1,16 +1,16 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/FriendsOfCake/fixturize.svg?style=flat-square)](https://packagist.org/packages/FriendsOfCake/fixturize)
 
-# Installation
-
-```
-composer require friendsofcake/fixturize
-```
-
 # Introduction
 
 The fixturize plugin will help improve performance of your fixture based tests.
 
 This plugin currently only work with MySQL/MariaDB/Percona databases.
+
+# Installation
+
+```
+composer require friendsofcake/fixturize
+```
 
 # Usage
 
