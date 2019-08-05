@@ -12,6 +12,18 @@ This plugin currently only work with MySQL/MariaDB/Percona databases.
 composer require friendsofcake/fixturize
 ```
 
+Load the plugin in ``Application::bootstrap``, if you want to use the [themed Bake template](#themed-bake-template):
+
+```` php
+if (PHP_SAPI === 'cli') {
+	try {
+		$this->addPlugin('FriendsOfCake/Fixturize');
+	} catch (MissingPluginException $e) {
+		// Do not halt if the plugin is missing
+	}
+}
+````
+
 # Usage
 
 Instead of
@@ -50,3 +62,16 @@ Re-run your tests and enjoy the speed!
 </table>
 
 Feel free to submit your own results above.
+
+# Themed Bake Template
+
+To use the built-in [themed Bake template](https://book.cakephp.org/bake/1.x/en/development.html#creating-a-bake-theme),
+execute:
+
+```` bash
+php bin/cake.php bake fixture ModelName --theme FriendsOfCake/Fixturize
+````
+
+Make sure, you have [loaded the plugin](#installation).
+
+For more information, see the [Bake documentation](https://book.cakephp.org/bake/1.x/en/index.html).
