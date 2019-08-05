@@ -1,5 +1,11 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/FriendsOfCake/fixturize.svg?style=flat-square)](https://packagist.org/packages/FriendsOfCake/fixturize)
 
+# Introduction
+
+The fixturize plugin will help improve performance of your fixture based tests.
+
+This plugin currently only work with MySQL/MariaDB/Percona databases.
+
 # Installation
 
 For CakePHP 3.x compatible version:
@@ -7,12 +13,6 @@ For CakePHP 3.x compatible version:
 ```
 composer require friendsofcake/fixturize
 ```
-
-# Introduction
-
-The fixturize plugin will help improve performance of your fixture based tests.
-
-This plugin currently only work with MySQL/MariaDB/Percona databases.
 
 # Usage
 
