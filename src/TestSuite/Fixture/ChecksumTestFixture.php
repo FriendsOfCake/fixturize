@@ -30,7 +30,7 @@ class ChecksumTestFixture extends TestFixture
  * does not exist with a hash yet.
  *
  * @param ConnectionInterface $db
- * @return boolean
+ * @return \Cake\Database\StatementInterface|bool on success or if there are no records to insert, or false on failure.
  */
     public function insert(ConnectionInterface $db)
     {
@@ -80,10 +80,10 @@ class ChecksumTestFixture extends TestFixture
  * In all other cases where the initial and current hash differs, assume
  * the table has changed
  *
- * @param DboSource $db
+ * @param ConnectionInterface $db
  * @return boolean
  */
-    protected function _tableUnmodified($db)
+    protected function _tableUnmodified(ConnectionInterface $db)
     {
         $tableKey = $this->_getTableKey();
         if (!array_key_exists($tableKey, static::$_tableHashes)) {
