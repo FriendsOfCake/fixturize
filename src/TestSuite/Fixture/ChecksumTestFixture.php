@@ -30,7 +30,7 @@ class ChecksumTestFixture extends TestFixture
  * does not exist with a hash yet.
  *
  * @param ConnectionInterface $db
- * @return boolean
+ * @return \Cake\Database\StatementInterface|bool on success or if there are no records to insert, or false on failure.
  */
     public function insert(ConnectionInterface $db)
     {
