@@ -111,8 +111,11 @@ class ChecksumTestFixture extends TestFixture
             // Have no better idea right now to make it always regenerate the tables
             return microtime();
         }
-
-        $sth = $db->execute("CHECKSUM TABLE " . $this->table . ';');
+        $table = $this->table;
+        if ($db->getDriver()->isAutoQuotingEnabled()) {
+            $table = "`$table`";
+        }
+        $sth = $db->execute("CHECKSUM TABLE $table;");
         $result = $sth->fetch('assoc');
         $checksum = $result['Checksum'];
         return $checksum;
