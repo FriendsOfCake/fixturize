@@ -80,10 +80,10 @@ class ChecksumTestFixture extends TestFixture
  * In all other cases where the initial and current hash differs, assume
  * the table has changed
  *
- * @param DboSource $db
+ * @param ConnectionInterface $db
  * @return boolean
  */
-    protected function _tableUnmodified($db)
+    protected function _tableUnmodified(ConnectionInterface $db)
     {
         $tableKey = $this->_getTableKey();
         if (!array_key_exists($tableKey, static::$_tableHashes)) {
