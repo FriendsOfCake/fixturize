@@ -1,40 +1,47 @@
 {
-  "name": "friendsofcake/fixturize",
-  "description": "CakePHP Fixture classes to help increase productivity or performance",
-  "type": "cakephp-plugin",
-  "keywords": [
-    "cakephp",
-    "fixture",
-    "fixtures",
-    "unittest",
-    "phpunit",
-    "performance"
-  ],
-  "homepage": "https://github.com/FriendsOfCake/fixturize",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Christian Winther",
-      "role": "Author",
-      "homepage": "http://cakephp.nu/"
+    "name": "friendsofcake/fixturize",
+    "description": "CakePHP Fixture classes to help increase productivity or performance",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp",
+        "fixture",
+        "fixtures",
+        "unittest",
+        "phpunit",
+        "performance"
+    ],
+    "homepage": "https://github.com/FriendsOfCake/fixturize",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Winther",
+            "role": "Author",
+            "homepage": "http://cakephp.nu/"
+        },
+        {
+            "name": "José Lorenzo Rodríguez",
+            "role": "Contributor",
+            "homepage": "https://github.com/lorenzo"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "FriendsOfCake\\Fixturize\\": "src"
+        }
     },
-    {
-      "name": "José Lorenzo Rodríguez",
-      "role": "Contributor",
-      "homepage": "https://github.com/lorenzo"
+    "scripts": {
+        "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/",
+        "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/"
+    },
+    "require": {
+        "cakephp/cakephp": "^4.0"
+    },
+    "require-dev": {
+        "cakephp/cakephp-codesniffer": "^4.0"
+    },
+    "support": {
+        "source": "https://github.com/FriendsOfCake/fixturize",
+        "issues": "https://github.com/FriendsOfCake/fixturize/issues",
+        "irc": "irc://irc.freenode.org/cakephp"
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "FriendsOfCake\\Fixturize\\": "src"
-    }
-  },
-  "require": {
-    "cakephp/cakephp": "^3.2"
-  },
-  "support": {
-    "source": "https://github.com/FriendsOfCake/fixturize",
-    "issues": "https://github.com/FriendsOfCake/fixturize/issues",
-    "irc": "irc://irc.freenode.org/cakephp"
-  }
 }
