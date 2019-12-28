@@ -22,7 +22,7 @@ class ChecksumTestFixture extends TestFixture
      *
      * @var array
      */
-    public static $tableHashes = [];
+    protected static $_tableHashes = [];
 
     /**
      * Inserts records in the database
@@ -40,7 +40,7 @@ class ChecksumTestFixture extends TestFixture
         }
 
         $result = parent::insert($db);
-        static::$tableHashes[$this->_getTableKey()] = $this->_hash($db);
+        static::$_tableHashes[$this->_getTableKey()] = $this->_hash($db);
 
         return $result;
     }
@@ -70,7 +70,7 @@ class ChecksumTestFixture extends TestFixture
      */
     public function drop(ConnectionInterface $db): bool
     {
-        unset(static::$tableHashes[$this->_getTableKey()]);
+        unset(static::$_tableHashes[$this->_getTableKey()]);
 
         return parent::drop($db);
     }
@@ -89,11 +89,11 @@ class ChecksumTestFixture extends TestFixture
     protected function _tableUnmodified(ConnectionInterface $db): bool
     {
         $tableKey = $this->_getTableKey();
-        if (!array_key_exists($tableKey, static::$tableHashes)) {
+        if (!array_key_exists($tableKey, static::$_tableHashes)) {
             return false;
         }
 
-        if (static::$tableHashes[$tableKey] === $this->_hash($db)) {
+        if (static::$_tableHashes[$tableKey] === $this->_hash($db)) {
             return true;
         }
 
