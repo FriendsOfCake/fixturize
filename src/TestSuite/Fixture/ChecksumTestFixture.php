@@ -106,7 +106,7 @@ class ChecksumTestFixture extends TestFixture
             if (!empty($primary_key)) {
                 $sth = $db->execute("SELECT MD5(CAST((ARRAY_AGG(" . $this->table . ".* ORDER BY " . implode(',', $primary_key) . ")) AS TEXT)) FROM " . $this->table);
 
-                return $sth->fetchColumn(0);
+                return $sth->fetchColumn(0) ?: 'empty';
             }
         }
 
