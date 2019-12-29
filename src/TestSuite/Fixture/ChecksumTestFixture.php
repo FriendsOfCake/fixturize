@@ -25,7 +25,15 @@ class ChecksumTestFixture extends TestFixture
     protected static $_tableHashes = [];
 
     /**
-     * @inheritDoc
+     * Inserts records in the database
+     *
+     * This will only happen if the underlying table is modified in any way or
+     * does not exist with a hash yet.
+     *
+     * @param \Cake\Datasource\ConnectionInterface $db An instance of the connection
+     *   into which the records will be inserted.
+     * @return \Cake\Database\StatementInterface|bool on success or if there are no records to insert,
+     *  or false on failure.
      */
     public function insert(ConnectionInterface $db)
     {
@@ -40,7 +48,12 @@ class ChecksumTestFixture extends TestFixture
     }
 
     /**
-     * @inheritDoc
+     * Deletes all table information.
+     *
+     * This will only happen if the underlying table is modified in any way
+     *
+     * @param \Cake\Datasource\ConnectionInterface $db A reference to a db instance
+     * @return bool
      */
     public function truncate(ConnectionInterface $db): bool
     {
@@ -52,7 +65,10 @@ class ChecksumTestFixture extends TestFixture
     }
 
     /**
-     * @inheritDoc
+     * Drops the table from the test datasource
+     *
+     * @param \Cake\Datasource\ConnectionInterface $db An instance of the connection the fixture should be removed from.
+     * @return bool True on success, false on failure.
      */
     public function drop(ConnectionInterface $db): bool
     {
@@ -101,7 +117,6 @@ class ChecksumTestFixture extends TestFixture
 
             return $sth->fetchColumn(1);
         }
-
         // Have no better idea right now to make it always regenerate the tables
         return microtime();
     }
