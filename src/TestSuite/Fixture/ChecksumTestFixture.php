@@ -98,9 +98,9 @@ class ChecksumTestFixture extends TestFixture
         $driver = $db->getDriver();
 
         if ($driver instanceof Mysql) {
-            $sth = $db->execute("CHECKSUM TABLE " . $this->table . ';');
+            $sth = $db->execute("CHECKSUM TABLE " . $this->table);
 
-            return $sth->fetchColumn(0);
+            return $sth->fetchColumn(1);
         } elseif ($driver instanceof Postgres) {
             $primary_key = $this->getTableSchema()->getPrimaryKey();
             if (!empty($primary_key)) {
