@@ -26,15 +26,9 @@ class ChecksumTestFixture extends TestFixture
     protected static $_tableHashes = [];
 
     /**
-     * Inserts records in the database
-     *
-     * This will only happen if the underlying table is modified in any way or
-     * does not exist with a hash yet.
-     *
-     * @param \Cake\Datasource\ConnectionInterface $db A reference to a db instance
-     * @return bool
+     * @inheritDoc
      */
-    public function insert(ConnectionInterface $db): bool
+    public function insert(ConnectionInterface $db)
     {
         if ($this->_tableUnmodified($db)) {
             return true;
@@ -47,12 +41,7 @@ class ChecksumTestFixture extends TestFixture
     }
 
     /**
-     * Deletes all table information.
-     *
-     * This will only happen if the underlying table is modified in any way
-     *
-     * @param \Cake\Datasource\ConnectionInterface $db A reference to a db instance
-     * @return bool
+     * @inheritDoc
      */
     public function truncate(ConnectionInterface $db): bool
     {
@@ -64,10 +53,7 @@ class ChecksumTestFixture extends TestFixture
     }
 
     /**
-     * Drops the table from the test datasource
-     *
-     * @param \Cake\Datasource\ConnectionInterface $db A reference to a db instance
-     * @return bool
+     * @inheritDoc
      */
     public function drop(ConnectionInterface $db): bool
     {
@@ -113,11 +99,13 @@ class ChecksumTestFixture extends TestFixture
 
         if ($driver instanceof Mysql) {
             $sth = $db->execute("CHECKSUM TABLE " . $this->table . ';');
+
             return $sth->fetchColumn(0);
         } elseif ($driver instanceof Postgres) {
             $primary_key = $this->getTableSchema()->getPrimaryKey();
             if (!empty($primary_key)) {
                 $sth = $db->execute("SELECT MD5(CAST((ARRAY_AGG(" . $this->table . ".* ORDER BY " . implode(',', $primary_key) . ")) AS TEXT)) FROM " . $this->table);
+
                 return $sth->fetchColumn(0);
             }
         }
