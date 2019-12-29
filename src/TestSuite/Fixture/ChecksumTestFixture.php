@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace FriendsOfCake\Fixturize\TestSuite\Fixture;
 
 use Cake\Database\Driver\Mysql;
-use Cake\Database\Driver\Postgres;
 use Cake\Datasource\ConnectionInterface;
 use Cake\TestSuite\Fixture\TestFixture;
 
@@ -101,13 +100,6 @@ class ChecksumTestFixture extends TestFixture
             $sth = $db->execute("CHECKSUM TABLE " . $this->table);
 
             return $sth->fetchColumn(1);
-        } elseif ($driver instanceof Postgres) {
-            $primary_key = $this->getTableSchema()->getPrimaryKey();
-            if (!empty($primary_key)) {
-                $sth = $db->execute("SELECT MD5(CAST((ARRAY_AGG(" . $this->table . ".* ORDER BY " . implode(',', $primary_key) . ")) AS TEXT)) FROM " . $this->table);
-
-                return $sth->fetchColumn(0) ?: 'empty';
-            }
         }
 
         // Have no better idea right now to make it always regenerate the tables
