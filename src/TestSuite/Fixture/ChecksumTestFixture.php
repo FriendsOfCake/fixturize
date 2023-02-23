@@ -112,7 +112,7 @@ class ChecksumTestFixture extends TestFixture
         $driver = $db->getDriver();
 
         if ($driver instanceof Mysql) {
-            $sth = $db->execute('CHECKSUM TABLE ' . $this->table);
+            $sth = $db->execute('CHECKSUM TABLE `' . $this->table . '`');
 
             return $sth->fetchColumn(1);
         }
