@@ -1,0 +1,29 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  cs-stan:
+    name: Coding Standard & Static Analysis
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        extensions: mbstring, intl
+        coverage: none
+        tools: phpstan:1.10, cs2pr
+
+    - name: Composer Install
+      run: composer install
+
+    - name: Run phpcs
+      run: vendor/bin/phpcs --report=checkstyle --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ | cs2pr
+
+    - name: Run phpstan
+      if: always()
+      run: phpstan analyse --error-format=github

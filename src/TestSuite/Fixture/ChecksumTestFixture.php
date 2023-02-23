@@ -13,14 +13,13 @@ use Cake\TestSuite\Fixture\TestFixture;
  *
  * If no data has changed, the usual truncate/insert flow is bypassed, increasing the speed
  * of the test suite with heavy fixture usage up significantly.
- *
  */
 class ChecksumTestFixture extends TestFixture
 {
     /**
      * List of table hashes
      *
-     * @var array
+     * @var array<string, string>
      */
     protected static $_tableHashes = [];
 
@@ -113,10 +112,11 @@ class ChecksumTestFixture extends TestFixture
         $driver = $db->getDriver();
 
         if ($driver instanceof Mysql) {
-            $sth = $db->execute("CHECKSUM TABLE " . $this->table);
+            $sth = $db->execute('CHECKSUM TABLE ' . $this->table);
 
             return $sth->fetchColumn(1);
         }
+
         // Have no better idea right now to make it always regenerate the tables
         return microtime();
     }

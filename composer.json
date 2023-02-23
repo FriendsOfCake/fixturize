@@ -43,5 +43,10 @@
         "source": "https://github.com/FriendsOfCake/fixturize",
         "issues": "https://github.com/FriendsOfCake/fixturize/issues",
         "irc": "irc://irc.freenode.org/cakephp"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
