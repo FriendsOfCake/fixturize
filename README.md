@@ -65,7 +65,7 @@ Feel free to submit your own results above.
 
 # Themed Bake Template
 
-To use the built-in [themed Bake template](https://book.cakephp.org/bake/1.x/en/development.html#creating-a-bake-theme),
+To use the built-in [themed Bake template](https://book.cakephp.org/bake/2/en/development.html#creating-a-bake-theme),
 execute:
 
 ```` bash
@@ -74,4 +74,4 @@ php bin/cake.php bake fixture ModelName --theme FriendsOfCake/Fixturize
 
 Make sure, you have [loaded the plugin](#installation).
 
-For more information, see the [Bake documentation](https://book.cakephp.org/bake/1.x/en/index.html).
+For more information, see the [Bake documentation](https://book.cakephp.org/bake/2/en/index.html).
