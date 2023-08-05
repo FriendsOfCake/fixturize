@@ -34,11 +34,14 @@
         "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/"
     },
     "require": {
-        "cakephp/cakephp": "^4.0"
+        "php": ">=8.1",
+        "cakephp/cakephp": "5.x-dev"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "^4.0"
+        "cakephp/cakephp-codesniffer": "^5.0"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "support": {
         "source": "https://github.com/FriendsOfCake/fixturize",
         "issues": "https://github.com/FriendsOfCake/fixturize/issues",
