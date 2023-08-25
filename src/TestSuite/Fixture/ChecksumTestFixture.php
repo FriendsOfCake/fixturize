@@ -114,11 +114,11 @@ class ChecksumTestFixture extends TestFixture
         if ($driver instanceof Mysql) {
             $sth = $db->execute('CHECKSUM TABLE `' . $this->table . '`');
 
-            return $sth->fetchColumn(1);
+            return (string)$sth->fetchColumn(1);
         }
 
         // Have no better idea right now to make it always regenerate the tables
-        return microtime();
+        return microtime(false);
     }
 
     /**
