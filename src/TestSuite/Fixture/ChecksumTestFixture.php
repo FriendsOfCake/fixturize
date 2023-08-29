@@ -3,16 +3,18 @@ declare(strict_types=1);
 
 namespace FriendsOfCake\Fixturize\TestSuite\Fixture;
 
+use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
 use Cake\Datasource\ConnectionInterface;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * This class will inspect the database table hash and detect any change to the underlying
- * data set and automatically re-create the table and data
+ * This class will inspect the database table hash and detect any change to
+ * the underlying data set and automatically re-create the table and data
  *
- * If no data has changed, the usual truncate/insert flow is bypassed, increasing the speed
- * of the test suite with heavy fixture usage up significantly.
+ * If no data has changed, the usual truncate/insert flow is bypassed,
+ * increasing the speed of the test suite with heavy fixture usage up
+ * significantly.
  */
 class ChecksumTestFixture extends TestFixture
 {
@@ -21,7 +23,7 @@ class ChecksumTestFixture extends TestFixture
      *
      * @var array<string, string>
      */
-    protected static array $_tableHashes = [];
+    protected static array $tableHashes = [];
 
     /**
      * Inserts records in the database
@@ -29,19 +31,19 @@ class ChecksumTestFixture extends TestFixture
      * This will only happen if the underlying table is modified in any way or
      * does not exist with a hash yet.
      *
-     * @param \Cake\Datasource\ConnectionInterface $connection An instance of the connection
-     *   into which the records will be inserted.
+     * @param \Cake\Datasource\ConnectionInterface $connection An instance
+     *   of the connection into which the records will be inserted.
      * @return bool on success or if there are no records to insert,
      *  or false on failure.
      */
     public function insert(ConnectionInterface $connection): bool
     {
-        if ($this->_tableUnmodified($connection)) {
+        if ($this->tableUnmodified($connection)) {
             return true;
         }
 
         $result = parent::insert($connection);
-        static::$_tableHashes[$this->_getTableKey()] = $this->_hash($connection);
+        static::$tableHashes[$this->getTableKey()] = $this->hash($connection);
 
         return $result;
     }
@@ -56,7 +58,7 @@ class ChecksumTestFixture extends TestFixture
      */
     public function truncate(ConnectionInterface $connection): bool
     {
-        if ($this->_tableUnmodified($connection)) {
+        if ($this->tableUnmodified($connection)) {
             return true;
         }
 
@@ -74,14 +76,14 @@ class ChecksumTestFixture extends TestFixture
      * @param \Cake\Datasource\ConnectionInterface $connection A reference to a db instance
      * @return bool
      */
-    protected function _tableUnmodified(ConnectionInterface $connection): bool
+    protected function tableUnmodified(ConnectionInterface $connection): bool
     {
-        $tableKey = $this->_getTableKey();
-        if (!array_key_exists($tableKey, static::$_tableHashes)) {
+        $tableKey = $this->getTableKey();
+        if (!array_key_exists($tableKey, static::$tableHashes)) {
             return false;
         }
 
-        if (static::$_tableHashes[$tableKey] === $this->_hash($connection)) {
+        if (static::$tableHashes[$tableKey] === $this->hash($connection)) {
             return true;
         }
 
@@ -94,8 +96,9 @@ class ChecksumTestFixture extends TestFixture
      * @param \Cake\Datasource\ConnectionInterface $connection A reference to a db instance
      * @return string
      */
-    protected function _hash(ConnectionInterface $connection): string
+    protected function hash(ConnectionInterface $connection): string
     {
+        assert($connection instanceof Connection);
         $driver = $connection->getDriver();
 
         if ($driver instanceof Mysql) {
@@ -113,7 +116,7 @@ class ChecksumTestFixture extends TestFixture
      *
      * @return string key for specify connection and table
      */
-    protected function _getTableKey(): string
+    protected function getTableKey(): string
     {
         return $this->connection() . '-' . $this->table;
     }

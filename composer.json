@@ -30,11 +30,20 @@
         }
     },
     "scripts": {
-        "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/",
-        "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/"
+        "cs-check": "phpcs --colors --parallel=16 -p src/",
+        "cs-fix": "phpcbf --colors --parallel=16 -p src/",
+        "phpstan": "tools/phpstan analyse",
+        "psalm": "tools/psalm --show-info=false",
+        "stan": [
+            "@phpstan",
+            "@psalm"
+        ],
+        "stan-baseline": "tools/phpstan --generate-baseline",
+        "psalm-baseline": "tools/psalm  --set-baseline=psalm-baseline.xml",
+        "stan-setup": "phive install",
+        "test": "phpunit"
     },
     "require": {
-        "php": ">=8.1",
         "cakephp/cakephp": "5.x-dev"
     },
     "require-dev": {
