@@ -4,6 +4,7 @@
     "type": "cakephp-plugin",
     "keywords": [
         "cakephp",
+        "testing",
         "fixture",
         "fixtures",
         "unittest",
