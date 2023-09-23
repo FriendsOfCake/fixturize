@@ -44,13 +44,11 @@
         "test": "phpunit"
     },
     "require": {
-        "cakephp/cakephp": "5.x-dev"
+        "cakephp/cakephp": "^5.0.0"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^5.0"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "support": {
         "source": "https://github.com/FriendsOfCake/fixturize",
         "issues": "https://github.com/FriendsOfCake/fixturize/issues",
