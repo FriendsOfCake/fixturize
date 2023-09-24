@@ -44,6 +44,7 @@
         "test": "phpunit"
     },
     "require": {
+        "php": ">=8.1",
         "cakephp/cakephp": "^5.0.0"
     },
     "require-dev": {
