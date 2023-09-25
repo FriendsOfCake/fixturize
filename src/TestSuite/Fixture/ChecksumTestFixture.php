@@ -38,12 +38,12 @@ class ChecksumTestFixture extends TestFixture
      */
     public function insert(ConnectionInterface $connection): bool
     {
-        if ($this->tableUnmodified($connection)) {
+        if ($this->_tableUnmodified($connection)) {
             return true;
         }
 
         $result = parent::insert($connection);
-        static::$_tableHashes[$this->getTableKey()] = $this->hash($connection);
+        static::$_tableHashes[$this->_getTableKey()] = $this->_hash($connection);
 
         return $result;
     }
@@ -58,7 +58,7 @@ class ChecksumTestFixture extends TestFixture
      */
     public function truncate(ConnectionInterface $connection): bool
     {
-        if ($this->tableUnmodified($connection)) {
+        if ($this->_tableUnmodified($connection)) {
             return true;
         }
 
@@ -76,14 +76,14 @@ class ChecksumTestFixture extends TestFixture
      * @param \Cake\Datasource\ConnectionInterface $connection A reference to a db instance
      * @return bool
      */
-    protected function tableUnmodified(ConnectionInterface $connection): bool
+    protected function _tableUnmodified(ConnectionInterface $connection): bool
     {
-        $tableKey = $this->getTableKey();
+        $tableKey = $this->_getTableKey();
         if (!array_key_exists($tableKey, static::$_tableHashes)) {
             return false;
         }
 
-        if (static::$_tableHashes[$tableKey] === $this->hash($connection)) {
+        if (static::$_tableHashes[$tableKey] === $this->_hash($connection)) {
             return true;
         }
 
@@ -96,7 +96,7 @@ class ChecksumTestFixture extends TestFixture
      * @param \Cake\Datasource\ConnectionInterface $connection A reference to a db instance
      * @return string
      */
-    protected function hash(ConnectionInterface $connection): string
+    protected function _hash(ConnectionInterface $connection): string
     {
         assert($connection instanceof Connection);
         $driver = $connection->getDriver();
@@ -116,7 +116,7 @@ class ChecksumTestFixture extends TestFixture
      *
      * @return string key for specify connection and table
      */
-    protected function getTableKey(): string
+    protected function _getTableKey(): string
     {
         return $this->connection() . '-' . $this->table;
     }
