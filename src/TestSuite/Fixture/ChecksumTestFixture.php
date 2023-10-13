@@ -3,16 +3,18 @@ declare(strict_types=1);
 
 namespace FriendsOfCake\Fixturize\TestSuite\Fixture;
 
+use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
 use Cake\Datasource\ConnectionInterface;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * This class will inspect the database table hash and detect any change to the underlying
- * data set and automatically re-create the table and data
+ * This class will inspect the database table hash and detect any change to
+ * the underlying data set and automatically re-create the table and data
  *
- * If no data has changed, the usual truncate/insert flow is bypassed, increasing the speed
- * of the test suite with heavy fixture usage up significantly.
+ * If no data has changed, the usual truncate/insert flow is bypassed,
+ * increasing the speed of the test suite with heavy fixture usage up
+ * significantly.
  */
 class ChecksumTestFixture extends TestFixture
 {
@@ -21,7 +23,7 @@ class ChecksumTestFixture extends TestFixture
      *
      * @var array<string, string>
      */
-    protected static $_tableHashes = [];
+    protected static array $_tableHashes = [];
 
     /**
      * Inserts records in the database
@@ -29,19 +31,19 @@ class ChecksumTestFixture extends TestFixture
      * This will only happen if the underlying table is modified in any way or
      * does not exist with a hash yet.
      *
-     * @param \Cake\Datasource\ConnectionInterface $db An instance of the connection
-     *   into which the records will be inserted.
-     * @return \Cake\Database\StatementInterface|bool on success or if there are no records to insert,
+     * @param \Cake\Datasource\ConnectionInterface $connection An instance
+     *   of the connection into which the records will be inserted.
+     * @return bool on success or if there are no records to insert,
      *  or false on failure.
      */
-    public function insert(ConnectionInterface $db)
+    public function insert(ConnectionInterface $connection): bool
     {
-        if ($this->_tableUnmodified($db)) {
+        if ($this->_tableUnmodified($connection)) {
             return true;
         }
 
-        $result = parent::insert($db);
-        static::$_tableHashes[$this->_getTableKey()] = $this->_hash($db);
+        $result = parent::insert($connection);
+        static::$_tableHashes[$this->_getTableKey()] = $this->_hash($connection);
 
         return $result;
     }
@@ -51,29 +53,16 @@ class ChecksumTestFixture extends TestFixture
      *
      * This will only happen if the underlying table is modified in any way
      *
-     * @param \Cake\Datasource\ConnectionInterface $db A reference to a db instance
+     * @param \Cake\Datasource\ConnectionInterface $connection A reference to a db instance
      * @return bool
      */
-    public function truncate(ConnectionInterface $db): bool
+    public function truncate(ConnectionInterface $connection): bool
     {
-        if ($this->_tableUnmodified($db)) {
+        if ($this->_tableUnmodified($connection)) {
             return true;
         }
 
-        return parent::truncate($db);
-    }
-
-    /**
-     * Drops the table from the test datasource
-     *
-     * @param \Cake\Datasource\ConnectionInterface $db An instance of the connection the fixture should be removed from.
-     * @return bool True on success, false on failure.
-     */
-    public function drop(ConnectionInterface $db): bool
-    {
-        unset(static::$_tableHashes[$this->_getTableKey()]);
-
-        return parent::drop($db);
+        return parent::truncate($connection);
     }
 
     /**
@@ -84,17 +73,17 @@ class ChecksumTestFixture extends TestFixture
      * In all other cases where the initial and current hash differs, assume
      * the table has changed
      *
-     * @param \Cake\Datasource\ConnectionInterface $db A reference to a db instance
+     * @param \Cake\Datasource\ConnectionInterface $connection A reference to a db instance
      * @return bool
      */
-    protected function _tableUnmodified(ConnectionInterface $db): bool
+    protected function _tableUnmodified(ConnectionInterface $connection): bool
     {
         $tableKey = $this->_getTableKey();
         if (!array_key_exists($tableKey, static::$_tableHashes)) {
             return false;
         }
 
-        if (static::$_tableHashes[$tableKey] === $this->_hash($db)) {
+        if (static::$_tableHashes[$tableKey] === $this->_hash($connection)) {
             return true;
         }
 
@@ -104,15 +93,16 @@ class ChecksumTestFixture extends TestFixture
     /**
      * Get the table hash from MySQL for a specific table
      *
-     * @param \Cake\Datasource\ConnectionInterface $db A reference to a db instance
+     * @param \Cake\Datasource\ConnectionInterface $connection A reference to a db instance
      * @return string
      */
-    protected function _hash(ConnectionInterface $db): string
+    protected function _hash(ConnectionInterface $connection): string
     {
-        $driver = $db->getDriver();
+        assert($connection instanceof Connection);
+        $driver = $connection->getDriver();
 
         if ($driver instanceof Mysql) {
-            $sth = $db->execute('CHECKSUM TABLE `' . $this->table . '`');
+            $sth = $connection->execute('CHECKSUM TABLE `' . $this->table . '`');
 
             return $sth->fetchColumn(1);
         }
