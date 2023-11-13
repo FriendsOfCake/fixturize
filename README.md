@@ -1,16 +1,28 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/FriendsOfCake/fixturize.svg?style=flat-square)](https://packagist.org/packages/FriendsOfCake/fixturize)
 
+# Introduction
+
+The fixturize plugin will help improve performance of your fixture based tests.
+
+This plugin currently only work with MySQL/MariaDB/Percona databases.
+
 # Installation
 
 ```
 composer require friendsofcake/fixturize
 ```
 
-# Introduction
+Load the plugin in ``Application::bootstrap``, if you want to use the [themed Bake template](#themed-bake-template):
 
-The fixturize plugin will help improve performance of your fixture based tests.
-
-This plugin currently only work with MySQL/MariaDB/Percona databases.
+```` php
+if (PHP_SAPI === 'cli') {
+	try {
+		$this->addPlugin('FriendsOfCake/Fixturize');
+	} catch (MissingPluginException $e) {
+		// Do not halt if the plugin is missing
+	}
+}
+````
 
 # Usage
 
@@ -50,3 +62,16 @@ Re-run your tests and enjoy the speed!
 </table>
 
 Feel free to submit your own results above.
+
+# Themed Bake Template
+
+To use the built-in [themed Bake template](https://book.cakephp.org/bake/2/en/development.html#creating-a-bake-theme),
+execute:
+
+```` bash
+php bin/cake.php bake fixture ModelName --theme FriendsOfCake/Fixturize
+````
+
+Make sure, you have [loaded the plugin](#installation).
+
+For more information, see the [Bake documentation](https://book.cakephp.org/bake/2/en/index.html).
