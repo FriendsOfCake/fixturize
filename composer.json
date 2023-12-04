@@ -16,8 +16,7 @@
     "authors": [
         {
             "name": "Christian Winther",
-            "role": "Author",
-            "homepage": "http://cakephp.nu/"
+            "role": "Author"
         },
         {
             "name": "José Lorenzo Rodríguez",
@@ -27,7 +26,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "FriendsOfCake\\Fixturize\\": "src"
+            "FriendsOfCake\\Fixturize\\": "src/"
         }
     },
     "scripts": {
@@ -53,8 +52,7 @@
     },
     "support": {
         "source": "https://github.com/FriendsOfCake/fixturize",
-        "issues": "https://github.com/FriendsOfCake/fixturize/issues",
-        "irc": "irc://irc.freenode.org/cakephp"
+        "issues": "https://github.com/FriendsOfCake/fixturize/issues"
     },
     "config": {
         "allow-plugins": {
