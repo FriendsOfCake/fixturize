@@ -125,6 +125,6 @@ class ChecksumTestFixture extends TestFixture
  */
     protected function _getTableKey ()
     {
-        return $this->connection() . '-' . $this->table;
+        return $this->connection() . '-' . $this->table . '-' . static::class;
     }
 }
