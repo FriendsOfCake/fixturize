@@ -121,9 +121,9 @@ class ChecksumTestFixture extends TestFixture
 /**
  * Get the key for table hashes
  *
- * @return string key for specify connection and table
+ * @return string key based on connection, table and fixture's class
  */
-    protected function _getTableKey ()
+    protected function _getTableKey()
     {
         return $this->connection() . '-' . $this->table . '-' . static::class;
     }
